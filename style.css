@@ -54,10 +54,10 @@ border-radius: 16px;
   font-style: normal;
 }
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Caveat Brush", cursive;
+  font-family: sans-serif;
 }
 p, li, a {
-  font-family: "Indie Flower", cursive;
+  font-family: sans-serif;
 }
 
 /* restored because grammarly hates me anyways this is from eddsworld */
