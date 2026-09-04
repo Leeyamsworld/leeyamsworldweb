@@ -17,4 +17,4 @@ A: Pure chaos with a wiki not powered by MediaWiki.
 
 Q: How do I navigate?
 
-A: With the sitemap! (Right now not existing)
+A: With the sitemap!
