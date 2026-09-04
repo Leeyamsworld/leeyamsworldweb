@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - Leeyamsworld</title>
+    
+    <!-- Pulling your site styles safely from the absolute root path -->
+    <link rel="stylesheet" href="/leeyamsworld.css">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .search-page-wrapper {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        #results-container {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="search-page-wrapper">
+        <div class="header">
+            <h1 class="caveat-brush-regular">Search Results</h1>
+            <!-- Updates dynamically to show what phrase was inputted -->
+            <p class="indie-flower-regular" id="search-query-text">Showing results for: </p>
+        </div>
+
+        <div class="nav">
+            <p><a href="/index.html">← Return to Homepage</a></p>
+        </div>
+
+        <!-- Matching results or error cards insert right here -->
+        <div id="results-container"></div>
+    </div>
+
+    <script>
+        // 1. Your searchable site index. Add your new page URLs and keywords here!
+        const siteDatabase = [
+            { title: "Homepage", url: "/index.html", tags: "home main blue stripes eddsworld index" },
+            { title: "About Liam", url: "/about.html", tags: "liam galeon profile bio credentials" },
+            { title: "Latest News Feed", url: "/news.html", tags: "news updates blog posts features buttons" },
+            { title: "Flash Animation Archive", url: "/animations/flash.html", tags: "swf animations flash videos ruffle" }
+        ];
+
+        // 2. Read the query parameters out of the browser address bar
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchQuery = urlParams.get('s'); // Targeting the ?s= token key
+
+        const queryDisplayText = document.getElementById('search-query-text');
+        const resultsContainer = document.getElementById('results-container');
+
+        if (searchQuery) {
+            // Display what the user typed in the header text line
+            queryDisplayText.textContent += `"${searchQuery}"`;
+            
+            const cleanQuery = searchQuery.toLowerCase().trim();
+            
+            // 3. Filter your data matrix against titles or search tags
+            const matchedPages = siteDatabase.filter(page => {
+                return page.title.toLowerCase().includes(cleanQuery) || 
+                       page.tags.toLowerCase().includes(cleanQuery);
+            });
+
+            // 4. Generate dynamic card blocks on screen for matching hits
+            if (matchedPages.length > 0) {
+                matchedPages.forEach(page => {
+                    const cardElement = document.createElement('div');
+                    cardElement.className = 'card';
+                    cardElement.innerHTML = `
+                        <h3 class="caveat-brush-regular" style="margin: 0 0 8px 0;">
+                            <a href="${page.url}">${page.title}</a>
+                        </h3>
+                        <p class="indie-flower-regular" style="margin: 0; opacity: 0.8;">
+                            Path: ${page.url}
+                        </p>
+                    `;
+                    resultsContainer.appendChild(cardElement);
+                });
+            } else {
+                resultsContainer.innerHTML = `<p class="indie-flower-regular">No matching pages found for that term. Try checking your spelling or search keyword strings.</p>`;
+            }
+        } else {
+            queryDisplayText.textContent = "No active search parameters specified.";
+        }
+    </script>
+</body>
+</html>
