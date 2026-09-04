@@ -65,6 +65,8 @@ p, li, a {
 	text-align:center;
 	background-color: #66a1ff;
 	width: 900px;
+	margin: 50px;
+	padding: 25px;
 }
 
 ul.menu {
